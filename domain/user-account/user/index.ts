@@ -6,6 +6,7 @@ export type UserInputDto = {
     id: string;
     firstName: string;
     lastName: string;
+    email: string;
     password: string;
 };
 
@@ -14,6 +15,7 @@ export class User implements Entity<string> {
         readonly id: string,
         readonly firstName: string,
         readonly lastName: string,
+        readonly email: string,
         readonly password: string,
     ) { }
 
@@ -30,14 +32,24 @@ export class User implements Entity<string> {
             throw new RequiredInformationError('User.lastName');
         }
 
+        if (input.email.trim().length === 0) {
+            throw new RequiredInformationError('User.email');
+        }
+
         if (input.password.trim().length === 0) {
             throw new RequiredInformationError('User.password');
         }
 
-        if(input.password.length < 3){
+        if (input.password.length < 3) {
             throw new InvalidPasswordLengthError();
         }
-        
-        return new User(input.id, input.firstName, input.lastName, input.password);
+
+        return new User(
+            input.id,
+            input.firstName,
+            input.lastName,
+            input.email,
+            input.password
+        );
     }
 }

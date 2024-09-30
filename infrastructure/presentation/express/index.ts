@@ -1,11 +1,9 @@
+import 'dotenv/config';
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import test from '@infrastructure/presentation/express/test';
-
-test();
 
 const app = express();
 const port = process.env.PORT ?? '3010';
