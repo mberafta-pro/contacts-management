@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "lib": ["es2020"],
+    "module": "commonjs",
+    "target": "es2020",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "@infrastructure/*": ["./infrastructure/*"],
+      "@domain/*": ["./domain/*"],
+      "@application/*": ["./application/*"],
+      "@ioc/*": ["./ioc/*"]
+    }
+  },
+  "include": [
+    "./application/**/*.ts",
+    "./infrastructure/**/*.ts",
+    "./ioc/**/*.ts",
+    "./domain/**/*.ts"
+  ]
+}
+
