@@ -4,7 +4,6 @@
   "scripts": {
     "start": "cross-env ts-node -r tsconfig-paths/register ./infrastructure/presentation/express/index.ts",
     "test": "cross-env NODE_ENV=test jest --runInBand",
-    "user:seed": "cross-env ts-node -r tsconfig-paths/register ./infrastructure/persistence/postgres/models/seed.ts",
     "prepare": "husky install"
   },
   "lint-staged": {

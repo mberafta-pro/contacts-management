@@ -1,13 +1,12 @@
 import { Entity } from '@domain/entity';
-import { InvalidPasswordLengthError } from '@domain/errors/invalid-password-length-error';
 import { RequiredInformationError } from '@domain/errors/required-information-error';
+import { Password } from '@domain/user-account/password';
 
 export type UserInputDto = {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
 };
 
 export class User implements Entity<string> {
@@ -16,8 +15,12 @@ export class User implements Entity<string> {
     readonly firstName: string,
     readonly lastName: string,
     readonly email: string,
-    readonly password: string
+    readonly password: Password
   ) {}
+
+  withPassword(hash: string, salt: string) {
+    return new User(this.id, this.firstName, this.lastName, this.email, Password.from(hash, salt));
+  }
 
   public static from(input: UserInputDto) {
     if (input.id.trim().length === 0) {
@@ -36,14 +39,6 @@ export class User implements Entity<string> {
       throw new RequiredInformationError('User.email');
     }
 
-    if (input.password.trim().length === 0) {
-      throw new RequiredInformationError('User.password');
-    }
-
-    if (input.password.length < 3) {
-      throw new InvalidPasswordLengthError();
-    }
-
-    return new User(input.id, input.firstName, input.lastName, input.email, input.password);
+    return new User(input.id, input.firstName, input.lastName, input.email, Password.empty);
   }
 }

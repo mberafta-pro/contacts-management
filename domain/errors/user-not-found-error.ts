@@ -1,0 +1,9 @@
+import { DomainError } from '@domain/errors';
+
+type UserNotFoundContext = { email: string };
+
+export class UserNotFoundError extends DomainError<UserNotFoundContext> {
+  constructor(email: string) {
+    super('user.not.found.error', { email });
+  }
+}

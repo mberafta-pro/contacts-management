@@ -1,8 +1,8 @@
-import { InvalidPasswordLengthError } from '@domain/errors/invalid-password-length-error';
 import { RequiredInformationError } from '@domain/errors/required-information-error';
+import { Password } from '@domain/user-account/password';
 import { User } from '@domain/user-account/user';
 
-describe('DOMAIN - User account > User tests', () => {
+describe('DOMAIN - User account - User tests', () => {
   describe('GIVEN I provide an input to create a new user', () => {
     describe('WHEN Id is empty', () => {
       it('THEN A Required information error should be raised', () => {
@@ -11,7 +11,6 @@ describe('DOMAIN - User account > User tests', () => {
           firstName: 'John',
           lastName: 'Doe',
           email: 'john.doe@test.com',
-          password: 'XXXXX',
         };
 
         expect(() => User.from(input)).toThrow(RequiredInformationError);
@@ -25,7 +24,6 @@ describe('DOMAIN - User account > User tests', () => {
           firstName: '',
           lastName: 'Doe',
           email: 'john.doe@test.com',
-          password: 'XXXXX',
         };
 
         expect(() => User.from(input)).toThrow(RequiredInformationError);
@@ -39,7 +37,6 @@ describe('DOMAIN - User account > User tests', () => {
           firstName: 'John',
           lastName: '',
           email: 'john.doe@test.com',
-          password: 'XXXXX',
         };
 
         expect(() => User.from(input)).toThrow(RequiredInformationError);
@@ -53,57 +50,27 @@ describe('DOMAIN - User account > User tests', () => {
           firstName: 'John',
           lastName: 'Doe',
           email: '',
-          password: 'XXXXX',
         };
 
         expect(() => User.from(input)).toThrow(RequiredInformationError);
-      });
-    });
-
-    describe('WHEN Password is empty', () => {
-      it('THEN A Required information error should be raised', () => {
-        const input = {
-          id: 'user-id',
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john.doe@test.com',
-          password: '',
-        };
-
-        expect(() => User.from(input)).toThrow(RequiredInformationError);
-      });
-    });
-
-    describe('WHEN Password length is lower than 3', () => {
-      it('THEN An Invalid password length error should be raised', () => {
-        const input = {
-          id: 'user-id',
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john.doe@test.com',
-          password: 'xx',
-        };
-
-        expect(() => User.from(input)).toThrow(InvalidPasswordLengthError);
       });
     });
 
     describe('WHEN Input informations are all valid', () => {
-      it('THEN A User should be created', () => {
+      it('THEN A User should be created, with an empty password', () => {
         const input = {
           id: 'user-id',
           firstName: 'John',
           lastName: 'Doe',
           email: 'john.doe@test.com',
-          password: 'XXXXX',
         };
 
         const user = User.from(input);
         expect(user.id).toBe(input.id);
         expect(user.firstName).toBe(input.firstName);
         expect(user.lastName).toBe(input.lastName);
-        expect(user.password).toBe(input.password);
         expect(user.email).toBe(input.email);
+        expect(user.password.equals(Password.empty)).toBeTruthy();
       });
     });
   });
