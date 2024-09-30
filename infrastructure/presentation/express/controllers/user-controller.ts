@@ -1,5 +1,5 @@
 import { FIND_USER_TYPE, FindUser } from '@application/query-handlers/find-user';
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { ApiController } from './index';
@@ -18,6 +18,9 @@ export class UsersController extends ApiController {
   }
 
   configureRoutes() {
-    console.log('TEST');
+    this.router.get('/', async (request: Request, response: Response) => {
+      console.log('Finally here!');
+      response.status(200).end();
+    });
   }
 }
