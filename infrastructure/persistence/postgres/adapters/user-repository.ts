@@ -3,6 +3,7 @@ import { User } from '@domain/user-account/user';
 import userModel from '@infrastructure/persistence/postgres/models/user';
 import { injectable } from 'inversify';
 import 'reflect-metadata';
+import { v4 } from 'uuid';
 
 @injectable()
 export class PostgresUserRepository implements UserRepository {
@@ -27,5 +28,9 @@ export class PostgresUserRepository implements UserRepository {
       lastName: user.lastName,
       email: user.email,
     }).withPassword(user.passwordHash, user.passwordSalt);
+  }
+
+  newId(): string {
+    return v4();
   }
 }

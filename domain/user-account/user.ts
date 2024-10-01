@@ -1,5 +1,5 @@
-import { Entity } from '@domain/entity';
-import { RequiredInformationError } from '@domain/errors/required-information-error';
+import { Entity } from '@domain/shared-kernel/entity';
+import { RequiredInformationError } from '@domain/user-account/errors/required-information-error';
 import { Password } from '@domain/user-account/password';
 
 export type UserInputDto = {

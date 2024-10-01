@@ -1,6 +1,5 @@
-import { CommandHandler } from '@application/command-handlers';
-import { LoginCommand } from '@application/commands/login-command';
-import { UserNotFoundError } from '@domain/errors/user-not-found-error';
+import { LoginCommand, LoginUsecase } from '@domain/user-account/api/login-usecase';
+import { UserNotFoundError } from '@domain/user-account/errors/user-not-found-error';
 import { TOKEN_MANAGER_TYPE, TokenManager } from '@domain/user-account/ports/token-manager';
 import { USER_REPOSITORY_TYPE, UserRepository } from '@domain/user-account/ports/user-repository';
 import {
@@ -10,10 +9,8 @@ import {
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 
-export const LOGIN_TYPE = Symbol.for('Login');
-
 @injectable()
-export class Login implements CommandHandler<LoginCommand, string> {
+export class Login implements LoginUsecase {
   public constructor(
     @inject(USER_REPOSITORY_TYPE) private readonly userRepository: UserRepository,
     @inject(PASSWORD_SERVICE_TYPE) private readonly passwordService: PasswordService,

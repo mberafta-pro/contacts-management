@@ -1,4 +1,4 @@
-import { RequiredInformationError } from '@domain/errors/required-information-error';
+import { RequiredInformationError } from '@domain/user-account/errors/required-information-error';
 import { Password } from '@domain/user-account/password';
 import { User } from '@domain/user-account/user';
 

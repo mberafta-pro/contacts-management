@@ -8,7 +8,8 @@ export default [
   ...tseslint.configs.recommended,
   {
     rules: {
-      '@typescript-eslint/no-unsafe-declaration-merging': 'off'
+      '@typescript-eslint/no-unsafe-declaration-merging': 'off',
+      '@typescript-eslint/no-empty-object-type': 'warn'
     }
   },
 ];

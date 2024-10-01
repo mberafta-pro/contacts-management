@@ -1,4 +1,4 @@
-import { DomainError } from '@domain/errors';
+import { DomainError } from '@domain/shared-kernel/domain-error';
 
 export class InvalidPasswordError extends DomainError {
   constructor() {

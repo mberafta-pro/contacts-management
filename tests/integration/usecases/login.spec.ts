@@ -1,5 +1,5 @@
-import { Login, LOGIN_TYPE } from '@application/command-handlers/login';
-import { LoginCommand } from '@application/commands/login-command';
+import { Login } from '@application/command-handlers/login';
+import { LOGIN_USECASE_TYPE, LoginCommand } from '@domain/user-account/api/login-usecase';
 import { TOKEN_MANAGER_TYPE, TokenManager } from '@domain/user-account/ports/token-manager';
 import {
   PASSWORD_SERVICE_TYPE,
@@ -42,7 +42,7 @@ describe('Integration - Usecases - Login tests', () => {
           password: 'xxxxxx',
         };
 
-        const usecase = container.get<Login>(LOGIN_TYPE);
+        const usecase = container.get<Login>(LOGIN_USECASE_TYPE);
         const token = await usecase.handle(command);
         const decodedToken = await tokenManager.decode(token);
 
