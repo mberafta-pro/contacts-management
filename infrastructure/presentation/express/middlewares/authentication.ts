@@ -1,4 +1,7 @@
-import { FIND_USER_TYPE, FindUser } from '@application/query-handlers/find-user';
+import {
+  FIND_USER_USECASE_TYPE,
+  FindUserUsecase,
+} from '@domain/user-account/api/find-user-usecase';
 import { FindUserPresenter } from '@infrastructure/presentation/express/presenters/find-user-presenter';
 import { container } from '@ioc/inversify';
 import { Request } from 'express';
@@ -29,16 +32,15 @@ const verifyRequest: VerifyCallbackWithRequest = async (
   payload: JwtPayload,
   done: VerifiedCallback
 ) => {
-  const { sub, user } = payload;
-  if (!sub) return done(jwtMissingIdError);
-
-  const findUser = container.get<FindUser>(FIND_USER_TYPE);
+  const { sub = '' } = payload;
+  const findUser = container.get<FindUserUsecase>(FIND_USER_USECASE_TYPE);
   const presenter = new FindUserPresenter();
-  await findUser.handle(presenter, { email: sub });
 
-  if(!presenter.presented) return done(jwtUserNotFoundError);
-  
-  return done(undefined, presenter.presented);
+  await findUser.handle(presenter, { id: sub });
+
+  if (!presenter.content) return done(jwtUserNotFoundError);
+
+  return done(undefined, presenter.content);
 };
 
 passport.use(new JwtStrategy(jwtOptions, verifyRequest));

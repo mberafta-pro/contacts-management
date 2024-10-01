@@ -30,6 +30,18 @@ export class PostgresUserRepository implements UserRepository {
     }).withPassword(user.passwordHash, user.passwordSalt);
   }
 
+  async findById(id: string): Promise<User | null> {
+    const user = await userModel.findOne({ where: { id } });
+    if (!user) return null;
+
+    return User.from({
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    }).withPassword(user.passwordHash, user.passwordSalt);
+  }
+
   newId(): string {
     return v4();
   }

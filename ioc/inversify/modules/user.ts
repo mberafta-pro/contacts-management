@@ -1,5 +1,10 @@
 import { Login } from '@application/command-handlers/login';
 import { Signup } from '@application/command-handlers/signup';
+import { FindUser } from '@application/query-handlers/find-user';
+import {
+  FIND_USER_USECASE_TYPE,
+  FindUserUsecase,
+} from '@domain/user-account/api/find-user-usecase';
 import { LOGIN_USECASE_TYPE, LoginUsecase } from '@domain/user-account/api/login-usecase';
 import { SIGNUP_USECASE_TYPE, SignupUsecase } from '@domain/user-account/api/signup-usecase';
 import { TOKEN_MANAGER_TYPE } from '@domain/user-account/ports/token-manager';
@@ -29,6 +34,7 @@ export const userModule: IoCModuleDefinition<ContainerModule> = {
   usecases: new ContainerModule((bind: interfaces.Bind) => {
     bind<LoginUsecase>(LOGIN_USECASE_TYPE).to(Login);
     bind<SignupUsecase>(SIGNUP_USECASE_TYPE).to(Signup);
+    bind<FindUserUsecase>(FIND_USER_USECASE_TYPE).to(FindUser);
   }),
   domainServices: new ContainerModule((bind: interfaces.Bind) => {
     bind(PASSWORD_SERVICE_TYPE).to(PasswordService);

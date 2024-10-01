@@ -28,6 +28,6 @@ export class UsersController extends ApiController {
 
   configureRoutes() {
     this.router.post('/login', checkSchema(loginSchema), loginHandler(this.login));
-    this.router.post('/signup', checkSchema(signupSchema), signupHandler(this.signup));
+    this.router.post('/', checkSchema(signupSchema), signupHandler(this.signup));
   }
 }
