@@ -25,7 +25,8 @@
     "./application/**/*.ts",
     "./infrastructure/**/*.ts",
     "./ioc/**/*.ts",
-    "./domain/**/*.ts"
+    "./domain/**/*.ts",
+    "./tests/**/*.ts"
   ]
 }
 

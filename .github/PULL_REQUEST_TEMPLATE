@@ -1,0 +1,11 @@
+### Ticket number, if any 🎟️
+Does this close any currently open issues?
+
+### What has changed 📋
+Please explain the changes you made here.
+
+### Checks 🤜🤛
+Before you submit a pull request, please make sure you have to following:
+- [ ] All new and existing tests passed
+- [ ] Linter passed
+- [ ] README/documentation has been updated, if necessary
