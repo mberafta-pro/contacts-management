@@ -1,4 +1,4 @@
-import { UserRepository } from '@domain/user-account/ports/user-repository';
+import { UserRepository } from '@domain/user-account/spi/user-repository';
 import { User } from '@domain/user-account/user';
 import userModel from '@infrastructure/persistence/postgres/models/user';
 import { injectable } from 'inversify';

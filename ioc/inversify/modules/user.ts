@@ -7,8 +7,8 @@ import {
 } from '@domain/user-account/api/find-user-usecase';
 import { LOGIN_USECASE_TYPE, LoginUsecase } from '@domain/user-account/api/login-usecase';
 import { SIGNUP_USECASE_TYPE, SignupUsecase } from '@domain/user-account/api/signup-usecase';
-import { TOKEN_MANAGER_TYPE } from '@domain/user-account/ports/token-manager';
-import { USER_REPOSITORY_TYPE } from '@domain/user-account/ports/user-repository';
+import { TOKEN_MANAGER_TYPE } from '@domain/user-account/spi/token-manager';
+import { USER_REPOSITORY_TYPE } from '@domain/user-account/spi/user-repository';
 import {
   PASSWORD_SERVICE_TYPE,
   PasswordService,

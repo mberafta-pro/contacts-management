@@ -1,7 +1,7 @@
 import { LoginCommand, LoginUsecase } from '@domain/user-account/api/login-usecase';
 import { UserNotFoundError } from '@domain/user-account/errors/user-not-found-error';
-import { TOKEN_MANAGER_TYPE, TokenManager } from '@domain/user-account/ports/token-manager';
-import { USER_REPOSITORY_TYPE, UserRepository } from '@domain/user-account/ports/user-repository';
+import { TOKEN_MANAGER_TYPE, TokenManager } from '@domain/user-account/spi/token-manager';
+import { USER_REPOSITORY_TYPE, UserRepository } from '@domain/user-account/spi/user-repository';
 import {
   PASSWORD_SERVICE_TYPE,
   PasswordService,

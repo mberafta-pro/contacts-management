@@ -1,6 +1,6 @@
 import { Presenter } from '@domain/shared-kernel/presenter';
 import { FindUserQuery, FindUserUsecase } from '@domain/user-account/api/find-user-usecase';
-import { USER_REPOSITORY_TYPE, UserRepository } from '@domain/user-account/ports/user-repository';
+import { USER_REPOSITORY_TYPE, UserRepository } from '@domain/user-account/spi/user-repository';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 

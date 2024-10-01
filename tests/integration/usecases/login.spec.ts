@@ -1,6 +1,6 @@
 import { Login } from '@application/command-handlers/login';
 import { LOGIN_USECASE_TYPE, LoginCommand } from '@domain/user-account/api/login-usecase';
-import { TOKEN_MANAGER_TYPE, TokenManager } from '@domain/user-account/ports/token-manager';
+import { TOKEN_MANAGER_TYPE, TokenManager } from '@domain/user-account/spi/token-manager';
 import {
   PASSWORD_SERVICE_TYPE,
   PasswordService,

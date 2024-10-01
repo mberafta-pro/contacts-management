@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { injectable } from 'inversify';
 import { JwtPayload, sign, verify } from 'jsonwebtoken';
 import { User, UserInputDto } from '@domain/user-account/user';
-import { TokenManager } from '@domain/user-account/ports/token-manager';
+import { TokenManager } from '@domain/user-account/spi/token-manager';
 
 export type UserPayload = {
   firstname: string;
