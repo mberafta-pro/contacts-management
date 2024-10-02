@@ -1,6 +1,6 @@
 import { Entity } from '@domain/shared-kernel/entity';
 import { RequiredInformationError } from '@domain/user-account/errors/required-information-error';
-import { Password } from '@domain/user-account/password';
+import { Password } from '@domain/user-account/value-objects/password';
 
 export type UserInputDto = {
   id: string;

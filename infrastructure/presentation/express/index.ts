@@ -17,7 +17,7 @@ app.use(bodyParser.json({ limit: '100mb' }));
 app.use('/api/v1', apiRoutes);
 
 app.listen(port, () => {
-    console.log(`User manager API running on port ${port}`);
+  console.log(`User manager API running on port ${port}`);
 });
 
 export default app;

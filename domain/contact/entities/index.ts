@@ -6,6 +6,7 @@ import { Entity } from '@domain/shared-kernel/entity';
 export type ContactInputDto = {
   id: string;
   externalId: string;
+  source: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -16,6 +17,7 @@ export class Contact implements Entity<string> {
   private constructor(
     readonly id: string,
     readonly externalId: string,
+    readonly source: string,
     readonly identity: Identity,
     readonly reachabilityInformations: ReachabilityInformations
   ) {}
@@ -29,6 +31,10 @@ export class Contact implements Entity<string> {
       throw new RequiredInformationError('contact.externalId');
     }
 
+    if (input.source.trim().length === 0) {
+      throw new RequiredInformationError('contact.source');
+    }
+
     const identity = Identity.from({
       firstName: input.firstName,
       lastName: input.lastName,
@@ -39,6 +45,12 @@ export class Contact implements Entity<string> {
       phoneNumber: input.phoneNumber,
     });
 
-    return new Contact(input.id, input.externalId, identity, reachabilityInformations);
+    return new Contact(
+      input.id,
+      input.externalId,
+      input.source,
+      identity,
+      reachabilityInformations
+    );
   }
 }

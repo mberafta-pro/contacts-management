@@ -5,9 +5,9 @@ import {
   PASSWORD_SERVICE_TYPE,
   PasswordService,
 } from '@domain/user-account/services/password-service';
-import { User } from '@domain/user-account/user';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
+import { User } from '@domain/user-account/entities/user';
 
 @injectable()
 export class Signup implements SignupUsecase {

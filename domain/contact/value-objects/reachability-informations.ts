@@ -1,5 +1,5 @@
 import { RequiredInformationError } from '@domain/contact/errors/required-information-error';
-import { ValueObject } from '@domain/value-object';
+import { ValueObject } from '@domain/shared-kernel/value-object';
 
 export type ReachabilityInformationsInputDto = {
   email: string;
