@@ -11,7 +11,6 @@ import { USER_REPOSITORY_TYPE, UserRepository } from '@domain/user-account/spi/u
 import { Arg, Substitute } from '@fluffy-spoon/substitute';
 import { ExternalContactClientFactory } from '@infrastructure/external/adapters/external-contact-client-factory';
 import { HttpClient } from '@infrastructure/external/httpclient';
-import configuration from '@infrastructure/persistence/postgres/configuration';
 import ConnectorModel from '@infrastructure/persistence/postgres/models/connector';
 import ContactModel from '@infrastructure/persistence/postgres/models/contact';
 import UserModel from '@infrastructure/persistence/postgres/models/user';
@@ -22,7 +21,6 @@ describe('Integration - Usecases - Synchronize contacts tests', () => {
   beforeAll(async () => {
     try {
       await sequelize.authenticate();
-      await configuration();
       await UserModel.destroy({ where: {}, truncate: true });
       await ContactModel.destroy({ where: {}, truncate: true });
       await ConnectorModel.destroy({ where: {}, truncate: true });

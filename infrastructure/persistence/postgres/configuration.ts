@@ -8,4 +8,7 @@ export default async () => {
       await model.sync({ alter: true });
     })
   );
+
+  user.hasMany(connector, { foreignKey: 'ownerId', onDelete: 'CASCADE' });
+  connector.belongsTo(user);
 };

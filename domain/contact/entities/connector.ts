@@ -1,5 +1,6 @@
 import { InvalidConnectorSourceError } from '@domain/contact/errors/invalid-connector-source-error';
 import { RequiredInformationError } from '@domain/contact/errors/required-information-error';
+import { ConnectorAccessEncrypter } from '@domain/contact/services/connector-access-encrypter';
 import { ConnectorAccess } from '@domain/contact/value-objects/connector-access';
 import { ConnectorAccessFactory } from '@domain/contact/value-objects/connector-access/factory';
 import { Entity } from '@domain/shared-kernel/entity';
@@ -23,6 +24,24 @@ export class Connector implements Entity<string> {
     readonly source: ConnectorSource,
     readonly access: ConnectorAccess
   ) {}
+
+  public encryptWith(encrypter: ConnectorAccessEncrypter) {
+    return new Connector(
+      this.id,
+      this.ownerId,
+      this.source,
+      ConnectorAccessFactory.createFrom(this.source, encrypter.encrypt(this.access))
+    );
+  }
+
+  public decryptWith(encrypter: ConnectorAccessEncrypter) {
+    return new Connector(
+      this.id,
+      this.ownerId,
+      this.source,
+      ConnectorAccessFactory.createFrom(this.source, encrypter.decrypt(this.access))
+    );
+  }
 
   public static from(input: ConnectorInputDto) {
     if (input.id.trim().length === 0) {

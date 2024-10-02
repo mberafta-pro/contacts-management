@@ -1,3 +1,9 @@
+import { AddConnector } from '@application/command-handlers/add-connector';
+import { ADD_CONNECTOR_USECASE_TYPE, AddConnectorUsecase } from '@domain/contact/api/add-connector';
+import {
+  CONNECTOR_ACCESS_ENCRYPTER_TYPE,
+  ConnectorAccessEncrypter,
+} from '@domain/contact/services/connector-access-encrypter';
 import {
   CONNECTOR_REPOSITORY_TYPE,
   ConnectorRepository,
@@ -23,10 +29,15 @@ export const contactModule: IoCModuleDefinition<ContainerModule> = {
   }),
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   controllers: new ContainerModule((bind: interfaces.Bind) => {}),
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  usecases: new ContainerModule((bind: interfaces.Bind) => {}),
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  domainServices: new ContainerModule((bind: interfaces.Bind) => {}),
+  usecases: new ContainerModule((bind: interfaces.Bind) => {
+    bind<AddConnectorUsecase>(ADD_CONNECTOR_USECASE_TYPE).to(AddConnector);
+  }),
+
+  domainServices: new ContainerModule((bind: interfaces.Bind) => {
+    bind<ConnectorAccessEncrypter>(CONNECTOR_ACCESS_ENCRYPTER_TYPE)
+      .to(ConnectorAccessEncrypter)
+      .inSingletonScope();
+  }),
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   constants: new ContainerModule((bind: interfaces.Bind) => {}),
 };
