@@ -14,8 +14,8 @@ services:
     volumes:
       - esdata:/usr/share/elasticsearch/data
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - '9200:9200'
+      - '9300:9300'
     networks:
       - app-network
 
@@ -23,11 +23,11 @@ services:
     image: docker.elastic.co/kibana/kibana:7.10.1
     container_name: kibana
     ports:
-      - "5601:5601"
+      - '5601:5601'
     networks:
       - app-network
     environment:
-      ELASTICSEARCH_URL: "http://elasticsearch:9200"
+      ELASTICSEARCH_URL: 'http://elasticsearch:9200'
 
   postgres:
     image: postgres:13
@@ -39,7 +39,18 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - '5432:5432'
+    networks:
+      - app-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@domain.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - '80:80'
     networks:
       - app-network
 

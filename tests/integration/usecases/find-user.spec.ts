@@ -9,10 +9,10 @@ import {
   PASSWORD_SERVICE_TYPE,
   PasswordService,
 } from '@domain/user-account/services/password-service';
-import { User } from '@domain/user-account/user';
 import userModel from '@infrastructure/persistence/postgres/models/user';
 import sequelize from '@infrastructure/persistence/postgres/sequelize';
 import { container } from '@ioc/inversify';
+import { User } from '@domain/user-account/entities/user';
 
 class TestPresenter extends Presenter<User, { id: string; email: string }> {
   content?: { id: string; email: string };

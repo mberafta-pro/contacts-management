@@ -1,38 +1,42 @@
 import { IoC } from '@ioc/index';
+import { contactModule } from '@ioc/inversify/modules/contact';
+import { globalModule } from '@ioc/inversify/modules/global';
 import { userModule } from '@ioc/inversify/modules/user';
 import { Container } from 'inversify';
 
 export class InversifyIoC implements IoC {
-    public readonly container: Container;
+  public readonly container: Container;
 
-    constructor() {
-        this.container = new Container();
-        this.bindAdapters();
-        this.bindConstants();
-        this.bindUsecases();
-        this.bindControllers();
-        this.bindDomainServices();
-    }
+  private readonly modules = [userModule, contactModule, globalModule];
 
-    bindAdapters() {
-        this.container.load(userModule.adapters);
-    }
+  constructor() {
+    this.container = new Container();
+    this.bindAdapters();
+    this.bindConstants();
+    this.bindUsecases();
+    this.bindControllers();
+    this.bindDomainServices();
+  }
 
-    bindConstants() {
-        this.container.load(userModule.constants);
-    }
+  bindAdapters() {
+    this.modules.forEach((module) => this.container.load(module.adapters));
+  }
 
-    bindControllers() {
-        this.container.load(userModule.controllers);
-    }
+  bindConstants() {
+    this.modules.forEach((module) => this.container.load(module.constants));
+  }
 
-    bindUsecases() {
-        this.container.load(userModule.usecases);
-    }
+  bindControllers() {
+    this.modules.forEach((module) => this.container.load(module.controllers));
+  }
 
-    bindDomainServices(): void {
-        this.container.load(userModule.domainServices);
-    }
+  bindUsecases() {
+    this.modules.forEach((module) => this.container.load(module.usecases));
+  }
+
+  bindDomainServices() {
+    this.modules.forEach((module) => this.container.load(module.domainServices));
+  }
 }
 
 export const { container } = new InversifyIoC();

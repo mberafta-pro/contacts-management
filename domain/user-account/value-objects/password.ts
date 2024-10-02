@@ -1,4 +1,4 @@
-import { ValueObject } from '@domain/value-object';
+import { ValueObject } from '@domain/shared-kernel/value-object';
 
 export class Password implements ValueObject<Password> {
   readonly hash: string;
