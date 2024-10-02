@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "cross-env ts-node -r tsconfig-paths/register ./infrastructure/presentation/express/index.ts",
+    "postgres:migrate": "cross-env ts-node -r tsconfig-paths/register ./infrastructure/persistence/postgres/migrations/index.ts",
     "test": "cross-env NODE_ENV=test jest --runInBand",
     "prepare": "husky install"
   },
@@ -30,6 +31,7 @@
     "pg": "^8.13.0",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.2.2",
+    "umzug": "^3.8.2",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
@@ -52,6 +54,7 @@
     "@types/passport-jwt": "^4.0.1",
     "@types/sequelize": "^4.28.20",
     "@types/supertest": "^6.0.2",
+    "@types/umzug": "^2.3.7",
     "@types/uuid": "^10.0.0",
     "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",

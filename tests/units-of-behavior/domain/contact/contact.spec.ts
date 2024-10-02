@@ -1,7 +1,7 @@
-import { Contact } from '@domain/contact';
-import { RequiredInformationError } from '@domain/contact/errors/required-information-error';
+import { Contact } from "@domain/contact/entities";
+import { RequiredInformationError } from "@domain/contact/errors/required-information-error";
 
-describe('DOMAIN - User account - User tests', () => {
+describe('DOMAIN - Contact - Contact tests', () => {
   describe('GIVEN I Provide an input to create a contact', () => {
     describe('WHEN Id is empty', () => {
       it('THEN A Required information error should be raised', () => {
