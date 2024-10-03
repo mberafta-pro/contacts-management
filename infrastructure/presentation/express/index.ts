@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use('/api/v1', apiRoutes);
 
+/* eslint-disable-next-line  @typescript-eslint/no-unused-vars */
 app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
   const status = error instanceof DomainError ? 400 : 500;
   response.status(status).json({ details: error });
