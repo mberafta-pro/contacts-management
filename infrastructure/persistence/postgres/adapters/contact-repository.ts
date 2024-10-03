@@ -10,6 +10,7 @@ export class PostgresContactRepository implements ContactRepository {
   async create(contact: Contact): Promise<void> {
     await ContactModel.create({
       id: contact.id,
+      ownerId: contact.ownerId,
       externalId: contact.externalId,
       source: contact.source,
       firstName: contact.identity.firstName,
@@ -19,11 +20,16 @@ export class PostgresContactRepository implements ContactRepository {
     });
   }
 
-  async getAll(page: number, size: number): Promise<Contact[]> {
-    const contacts = await ContactModel.findAll({ offset: page * size, limit: size });
+  async getAll(ownerId: string, page: number, size: number): Promise<Contact[]> {
+    const contacts = await ContactModel.findAll({
+      where: { ownerId },
+      offset: page * size,
+      limit: size,
+    });
     return contacts.map((contact) =>
       Contact.from({
         id: contact.id,
+        ownerId: contact.ownerId,
         externalId: contact.externalId,
         source: contact.source,
         firstName: contact.firstName,

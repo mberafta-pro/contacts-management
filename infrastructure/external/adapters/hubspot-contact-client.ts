@@ -53,6 +53,7 @@ export class HubspotContactClient implements ContactSynchronizationClient {
         try {
           return Contact.from({
             id: v4(),
+            ownerId: connector.ownerId,
             firstName: contact.properties.firstname,
             lastName: contact.properties.lastname,
             email: contact.properties.email,

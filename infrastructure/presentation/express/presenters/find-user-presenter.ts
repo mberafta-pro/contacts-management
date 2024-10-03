@@ -1,7 +1,7 @@
 import { Presenter } from '@domain/shared-kernel/presenter';
-import { User } from '@domain/user-account/user';
+import { User } from '@domain/user-account/entities/user';
 
-type UserOutput = {
+export type UserOutput = {
   id: string;
   firstName: string;
   lastName: string;

@@ -7,8 +7,26 @@ describe('DOMAIN - Contact - Contact tests', () => {
       it('THEN A Required information error should be raised', () => {
         const input = {
           id: '',
+          ownerId: 'owner-id',
           source: 'HUBSPOT',
           externalId: 'crm-id-01',
+          firstName: 'John',
+          lastName: 'Doe',
+          email: 'john.doe@test.com',
+          phoneNumber: '+33601010101',
+        };
+
+        expect(() => Contact.from(input)).toThrow(RequiredInformationError);
+      });
+    });
+
+    describe('WHEN Owner Id is empty', () => {
+      it('THEN A Required information error should be raised', () => {
+        const input = {
+          id: 'id',
+          ownerId: '',
+          source: 'HUBSPOT',
+          externalId: 'crm-id',
           firstName: 'John',
           lastName: 'Doe',
           email: 'john.doe@test.com',
@@ -22,7 +40,8 @@ describe('DOMAIN - Contact - Contact tests', () => {
     describe('WHEN External Id is empty', () => {
       it('THEN A Required information error should be raised', () => {
         const input = {
-          id: '',
+          id: 'id',
+          ownerId: 'owner-id',
           source: 'HUBSPOT',
           externalId: '',
           firstName: 'John',
@@ -38,7 +57,8 @@ describe('DOMAIN - Contact - Contact tests', () => {
     describe('WHEN Source is empty', () => {
       it('THEN A Required information error should be raised', () => {
         const input = {
-          id: '',
+          id: 'id',
+          ownerId: 'owner-id',
           source: 'HUBSPOT',
           externalId: '',
           firstName: 'John',
@@ -55,6 +75,7 @@ describe('DOMAIN - Contact - Contact tests', () => {
       it('THEN A Required information error should be raised', () => {
         const input = {
           id: 'user-id',
+          ownerId: 'owner-id',
           source: 'HUBSPOT',
           externalId: 'crm-id-01',
           firstName: '',
@@ -71,6 +92,7 @@ describe('DOMAIN - Contact - Contact tests', () => {
       it('THEN A Required information error should be raised', () => {
         const input = {
           id: 'user-id',
+          ownerId: 'owner-id',
           source: 'HUBSPOT',
           externalId: 'crm-id-01',
           firstName: 'John',
@@ -87,6 +109,7 @@ describe('DOMAIN - Contact - Contact tests', () => {
       it('THEN A Required information error should be raised', () => {
         const input = {
           id: 'user-id',
+          ownerId: 'owner-id',
           source: 'HUBSPOT',
           externalId: 'crm-id-01',
           firstName: 'John',
@@ -103,6 +126,7 @@ describe('DOMAIN - Contact - Contact tests', () => {
       it('THEN A Required information error should be raised', () => {
         const input = {
           id: 'user-id',
+          ownerId: 'owner-id',
           source: 'HUBSPOT',
           externalId: 'crm-id-01',
           firstName: 'John',
@@ -119,6 +143,7 @@ describe('DOMAIN - Contact - Contact tests', () => {
       it('THEN A Contact should be created', () => {
         const input = {
           id: 'user-id',
+          ownerId: 'owner-id',
           source: 'HUBSPOT',
           externalId: 'crm-id-01',
           firstName: 'John',

@@ -5,6 +5,7 @@ import { Entity } from '@domain/shared-kernel/entity';
 
 export type ContactInputDto = {
   id: string;
+  ownerId: string;
   externalId: string;
   source: string;
   firstName: string;
@@ -16,6 +17,7 @@ export type ContactInputDto = {
 export class Contact implements Entity<string> {
   private constructor(
     readonly id: string,
+    readonly ownerId: string,
     readonly externalId: string,
     readonly source: string,
     readonly identity: Identity,
@@ -25,6 +27,10 @@ export class Contact implements Entity<string> {
   public static from(input: ContactInputDto) {
     if (input.id.trim().length === 0) {
       throw new RequiredInformationError('contact.id');
+    }
+
+    if (input.ownerId.trim().length === 0) {
+      throw new RequiredInformationError('contact.ownerId');
     }
 
     if (input.externalId.trim().length === 0) {
@@ -47,6 +53,7 @@ export class Contact implements Entity<string> {
 
     return new Contact(
       input.id,
+      input.ownerId,
       input.externalId,
       input.source,
       identity,

@@ -4,6 +4,7 @@
   "scripts": {
     "start": "cross-env ts-node -r tsconfig-paths/register ./infrastructure/presentation/express/index.ts",
     "postgres:migrate": "cross-env ts-node -r tsconfig-paths/register ./infrastructure/persistence/postgres/migrations/index.ts",
+    "postgres:init": "cross-env ts-node -r tsconfig-paths/register ./infrastructure/persistence/postgres/configuration.ts",
     "test": "cross-env NODE_ENV=test jest --runInBand",
     "prepare": "husky install"
   },

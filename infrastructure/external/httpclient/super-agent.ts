@@ -1,6 +1,8 @@
 import { HttpClient } from '@infrastructure/external/httpclient';
 import SuperAgent from 'superagent';
-
+import 'reflect-metadata';
+import { injectable } from 'inversify';
+@injectable()
 export class SuperAgentHttpClient implements HttpClient {
   private requestCreator: SuperAgent.Agent;
 

@@ -10,5 +10,6 @@ export default async () => {
   );
 
   user.hasMany(connector, { foreignKey: 'ownerId', onDelete: 'CASCADE' });
+  user.hasMany(contact, { foreignKey: 'ownerId', onDelete: 'CASCADE' });
   connector.belongsTo(user);
 };

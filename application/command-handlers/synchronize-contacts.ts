@@ -2,6 +2,11 @@ import {
   SynchronizeContactsCommand,
   SynchronizeContactsUsecase,
 } from '@domain/contact/api/synchronize-contacts';
+import { ConnectorNotFoundError } from '@domain/contact/errors/connector-not-found-error';
+import {
+  CONNECTOR_ACCESS_ENCRYPTER_TYPE,
+  ConnectorAccessEncrypter,
+} from '@domain/contact/services/connector-access-encrypter';
 import {
   CONNECTOR_REPOSITORY_TYPE,
   ConnectorRepository,
@@ -20,17 +25,18 @@ export class SynchronizeContacts implements SynchronizeContactsUsecase {
     @inject(CONTACT_SYNCHRONIZATION_CLIENT_FACTORY_TYPE)
     private readonly clientFactory: ContactSynchronizationClientFactory,
     @inject(CONNECTOR_REPOSITORY_TYPE) private readonly connectorRepository: ConnectorRepository,
-    @inject(CONTACT_REPOSITORY_TYPE) private readonly contactRepository: ContactRepository
+    @inject(CONTACT_REPOSITORY_TYPE) private readonly contactRepository: ContactRepository,
+    @inject(CONNECTOR_ACCESS_ENCRYPTER_TYPE) private readonly encrypter: ConnectorAccessEncrypter
   ) {}
 
   async handle(command: SynchronizeContactsCommand): Promise<string | void> {
     const connector = await this.connectorRepository.getById(command.connectorId);
     if (!connector) {
-      throw new Error('');
+      throw new ConnectorNotFoundError(command.connectorId);
     }
 
     const client = this.clientFactory.getClientFrom(connector);
-    const contacts = await client.synchronize(connector);
+    const contacts = await client.synchronize(connector.decryptWith(this.encrypter));
 
     await Promise.all(
       contacts.map(async (contact) => {

@@ -21,7 +21,7 @@ export class UsersController extends ApiController {
     @inject(LOGIN_USECASE_TYPE) private readonly login: LoginUsecase,
     @inject(SIGNUP_USECASE_TYPE) private readonly signup: SignupUsecase
   ) {
-    super('/users');
+    super(USERS_PATH);
     this.router = Router();
     this.configureRoutes();
   }

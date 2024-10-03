@@ -9,6 +9,7 @@ import {
 
 interface ContactModel {
   id: string;
+  ownerId: string;
   source: string;
   externalId: string;
   firstName: string;
@@ -22,6 +23,7 @@ class ContactModel extends Model<
   InferCreationAttributes<ContactModel>
 > {
   declare id: string;
+  declare ownerId: string;
   declare source: string;
   declare externalId: string;
   declare phoneNumber: string;
@@ -37,6 +39,10 @@ ContactModel.init(
     id: {
       type: DataTypes.STRING,
       primaryKey: true,
+    },
+    ownerId: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     externalId: {
       type: DataTypes.STRING,

@@ -2,6 +2,10 @@ import { SynchronizeContacts } from '@application/command-handlers/synchronize-c
 import { SynchronizeContactsCommand } from '@domain/contact/api/synchronize-contacts';
 import { Connector, ConnectorSource } from '@domain/contact/entities/connector';
 import {
+  CONNECTOR_ACCESS_ENCRYPTER_TYPE,
+  ConnectorAccessEncrypter,
+} from '@domain/contact/services/connector-access-encrypter';
+import {
   CONNECTOR_REPOSITORY_TYPE,
   ConnectorRepository,
 } from '@domain/contact/spi/connector-repository';
@@ -39,6 +43,7 @@ describe('Integration - Usecases - Synchronize contacts tests', () => {
         const userRepository = container.get<UserRepository>(USER_REPOSITORY_TYPE);
         const contactRepository = container.get<ContactRepository>(CONTACT_REPOSITORY_TYPE);
         const connectorRepository = container.get<ConnectorRepository>(CONNECTOR_REPOSITORY_TYPE);
+        const encrypter = container.get<ConnectorAccessEncrypter>(CONNECTOR_ACCESS_ENCRYPTER_TYPE);
 
         const janeDoe = User.from({
           id: userRepository.newId(),
@@ -55,12 +60,12 @@ describe('Integration - Usecases - Synchronize contacts tests', () => {
         });
 
         await userRepository.create(janeDoe);
-        await connectorRepository.create(hubspotConnector);
+        await connectorRepository.create(hubspotConnector.encryptWith(encrypter));
 
         const httpClient = Substitute.for<HttpClient>();
         httpClient
           .get(
-            Arg.is((x) => x.match(/properties/i) != null),
+            Arg.is((x) => RegExp(/properties/i).exec(x) != null),
             Arg.any()
           )
           .resolves({
@@ -71,7 +76,7 @@ describe('Integration - Usecases - Synchronize contacts tests', () => {
 
         httpClient
           .get(
-            Arg.is((x) => x.match(/contacts/i) != null),
+            Arg.is((x) => RegExp(/contacts/i).exec(x) != null),
             Arg.any()
           )
           .resolves({
@@ -97,7 +102,8 @@ describe('Integration - Usecases - Synchronize contacts tests', () => {
         const usecase = new SynchronizeContacts(
           contactClientFactory,
           connectorRepository,
-          contactRepository
+          contactRepository,
+          encrypter
         );
         const command: SynchronizeContactsCommand = {
           connectorId: hubspotConnector.id,
@@ -105,9 +111,10 @@ describe('Integration - Usecases - Synchronize contacts tests', () => {
 
         await usecase.handle(command);
 
-        const insertedContacts = await contactRepository.getAll(0, 10);
+        const insertedContacts = await contactRepository.getAll(hubspotConnector.ownerId, 0, 10);
         expect(insertedContacts).toHaveLength(1);
         expect(insertedContacts[0].externalId).toBe('hs-01');
+        expect(insertedContacts[0].ownerId).toBe(hubspotConnector.ownerId);
         expect(insertedContacts[0].identity.firstName).toBe('Aria');
         expect(insertedContacts[0].identity.lastName).toBe('Stark');
         expect(insertedContacts[0].reachabilityInformations.phoneNumber).toBe('0601020304');
