@@ -21,6 +21,6 @@ export const listContactsHandler =
 
       response.status(200).json(presenter.content);
     } catch (error) {
-      next({ error });
+      next(error);
     }
   };

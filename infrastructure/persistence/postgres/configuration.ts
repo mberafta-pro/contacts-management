@@ -2,9 +2,11 @@ import connector from '@infrastructure/persistence/postgres/models/connector';
 import contact from '@infrastructure/persistence/postgres/models/contact';
 import user from '@infrastructure/persistence/postgres/models/user';
 
-export default async () => {
+const configure = async () => {
+  console.log('[POSTGRES] - Initialize database\n');
   await Promise.all(
     [user, connector, contact].map(async (model) => {
+      console.log(`Processing model ${model.name}`);
       await model.sync({ alter: true });
     })
   );
@@ -13,3 +15,5 @@ export default async () => {
   user.hasMany(contact, { foreignKey: 'ownerId', onDelete: 'CASCADE' });
   connector.belongsTo(user);
 };
+
+configure();

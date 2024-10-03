@@ -19,6 +19,6 @@ export const addConnectorHandler =
       });
       response.status(201).end();
     } catch (error) {
-      next({ error });
+      next(error);
     }
   };

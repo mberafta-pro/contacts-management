@@ -14,6 +14,6 @@ export const synchronizeContactsHandler =
 
       response.status(200).end();
     } catch (error) {
-      next({ error });
+      next(error);
     }
   };

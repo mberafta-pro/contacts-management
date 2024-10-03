@@ -4,15 +4,15 @@ import {
   FindUserQuery,
   FindUserUsecase,
 } from '@domain/user-account/api/find-user-usecase';
-import { USER_REPOSITORY_TYPE, UserRepository } from '@domain/user-account/spi/user-repository';
+import { User } from '@domain/user-account/entities/user';
 import {
   PASSWORD_SERVICE_TYPE,
   PasswordService,
 } from '@domain/user-account/services/password-service';
+import { USER_REPOSITORY_TYPE, UserRepository } from '@domain/user-account/spi/user-repository';
 import userModel from '@infrastructure/persistence/postgres/models/user';
 import sequelize from '@infrastructure/persistence/postgres/sequelize';
 import { container } from '@ioc/inversify';
-import { User } from '@domain/user-account/entities/user';
 
 class TestPresenter extends Presenter<User, { id: string; email: string }> {
   content?: { id: string; email: string };

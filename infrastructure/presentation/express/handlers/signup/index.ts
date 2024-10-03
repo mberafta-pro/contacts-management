@@ -17,6 +17,6 @@ export const signupHandler =
       await usecase.handle(request.body);
       response.status(201).end();
     } catch (error: unknown) {
-      next({ error });
+      next(error);
     }
   };
