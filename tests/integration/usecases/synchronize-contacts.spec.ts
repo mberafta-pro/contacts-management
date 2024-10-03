@@ -111,7 +111,7 @@ describe('Integration - Usecases - Synchronize contacts tests', () => {
 
         await usecase.handle(command);
 
-        const insertedContacts = await contactRepository.getAll(hubspotConnector.ownerId, 0, 10);
+        const insertedContacts = await contactRepository.getAll(hubspotConnector.ownerId, 1, 10);
         expect(insertedContacts).toHaveLength(1);
         expect(insertedContacts[0].externalId).toBe('hs-01');
         expect(insertedContacts[0].ownerId).toBe(hubspotConnector.ownerId);

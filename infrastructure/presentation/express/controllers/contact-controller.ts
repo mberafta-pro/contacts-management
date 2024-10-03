@@ -1,5 +1,6 @@
 import { LIST_CONTACTS_USECASE, ListContactsUsecase } from '@domain/contact/api/list-contacts';
 import { ApiController } from '@infrastructure/presentation/express/controllers';
+import { listContactsHandler } from '@infrastructure/presentation/express/handlers/list-contacts';
 import { Router } from 'express';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
@@ -17,5 +18,7 @@ export class ContactsController extends ApiController {
     this.configureRoutes();
   }
 
-  configureRoutes() {}
+  configureRoutes() {
+    this.router.get('/', listContactsHandler(this.listContacts));
+  }
 }

@@ -23,7 +23,7 @@ export class PostgresContactRepository implements ContactRepository {
   async getAll(ownerId: string, page: number, size: number): Promise<Contact[]> {
     const contacts = await ContactModel.findAll({
       where: { ownerId },
-      offset: page * size,
+      offset: (page - 1) * size,
       limit: size,
     });
     return contacts.map((contact) =>
