@@ -1,4 +1,4 @@
-import { User } from '@domain/user-account/user';
+import { User } from '@domain/user-account/entities/user';
 
 export const TOKEN_MANAGER_TYPE = Symbol.for('TokenManager');
 

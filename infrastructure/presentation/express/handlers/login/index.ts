@@ -14,6 +14,6 @@ export const loginHandler =
       const token = await usecase.handle(request.body);
       response.status(200).json({ token });
     } catch (error: unknown) {
-      next({ error });
+      next(error);
     }
   };

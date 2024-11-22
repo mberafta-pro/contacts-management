@@ -1,7 +1,7 @@
 import { InvalidPasswordError } from '@domain/user-account/errors/invalid-password-error';
 import { InvalidPasswordLengthError } from '@domain/user-account/errors/invalid-password-length-error';
 import { RequiredInformationError } from '@domain/user-account/errors/required-information-error';
-import { Password } from '@domain/user-account/password';
+import { Password } from '@domain/user-account/value-objects/password';
 import { PasswordService } from '@domain/user-account/services/password-service';
 
 describe('DOMAIN - Services - Password service tests', () => {

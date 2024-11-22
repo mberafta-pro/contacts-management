@@ -1,6 +1,6 @@
+import { User } from '@domain/user-account/entities/user';
 import { RequiredInformationError } from '@domain/user-account/errors/required-information-error';
-import { Password } from '@domain/user-account/password';
-import { User } from '@domain/user-account/user';
+import { Password } from '@domain/user-account/value-objects/password';
 
 describe('DOMAIN - User account - User tests', () => {
   describe('GIVEN I provide an input to create a new user', () => {
